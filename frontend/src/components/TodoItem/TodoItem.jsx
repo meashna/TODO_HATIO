@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import createApi from '../../services/api';
 import styles from './TodoItem.module.css';
 import Swal from 'sweetalert2';
-
+//pen,delete
+import { FaPen, FaTrash } from "react-icons/fa";
 function TodoItem({ todo, auth, refreshProject }) {
   const [isEditing, setIsEditing] = useState(false);
   const [description, setDescription] = useState(todo.description);
@@ -108,12 +109,10 @@ function TodoItem({ todo, auth, refreshProject }) {
               onChange={toggleStatus}
               className={styles.checkbox}
             />
-            <button onClick={() => setIsEditing(true)} className={`${styles.button} ${styles.editIcon}`}>
-              ✏️
-            </button>
-            <button onClick={handleDelete} className={`${styles.button} ${styles.deleteIcon}`}>
-              🗑️
-            </button>
+            <FaPen onClick={() => setIsEditing(true)} className={styles.editIcon} />
+              
+           
+            <FaTrash onClick={handleDelete} className={styles.deleteIcon}/>
           </div>
         </div>
       )}
