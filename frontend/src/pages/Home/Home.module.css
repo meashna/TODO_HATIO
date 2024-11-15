@@ -1,0 +1,90 @@
+/* Import the theme variables */
+@import '../../index.css'; /* Update the path accordingly */
+
+/* Container */
+.container {
+  padding: 20px;
+
+}
+
+/* Heading */
+.heading {
+  font-size: var(--font-size-large);
+  color: var(--text-color);
+  font-weight: 400;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* Error Message */
+.error {
+  color: red;
+  margin-bottom: 16px;
+}
+
+/* Form */
+.form {
+  display: flex;
+  align-items: center;
+  margin: 20px auto;
+  width: 60%;
+}
+
+.input {
+  flex: 1;
+  padding: 12px;
+  font-size: var(--font-size-base);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.button {
+  padding: 12px 24px;
+  margin-left: 10px;
+  font-size: var(--font-size-base);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: var(--hover-color);
+}
+
+/* Project List */
+.projectList {
+  margin-top: 20px;
+}
+
+/* Loading */
+.loading {
+  font-size: var(--font-size-base);
+  color: var(--text-color);
+}
+
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+/* Update the path accordingly */
+
+
+/* Form */
+.form {
+  display: flex;
+  align-items: center;
+  margin: 20px auto;
+  width: 100%;
+}
+
+
+
+}

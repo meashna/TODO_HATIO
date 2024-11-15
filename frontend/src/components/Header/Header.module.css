@@ -1,0 +1,47 @@
+/* Import theme variables if available */
+@import '../../index.css'; /* Update the path accordingly */
+
+/* Header Container */
+.header {
+  background-color: var(--background-color, #f0f0f0); /* Fallback if theme variable not defined */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo or Title */
+.logo {
+  font-size: var(--font-size-large, 1.5rem); /* Fallback to 1.5rem if theme variable not defined */
+  color: var(--primary-color, #000); /* Fallback to black if theme variable not defined */
+  margin: 0;
+  font-weight: 500;
+}
+
+/* User Info Section */
+.userInfo {
+  display: flex;
+  align-items: center;
+}
+
+.greeting {
+  margin-right: 20px;
+  font-size: var(--font-size-base, 1rem); /* Fallback to 1rem if theme variable not defined */
+  color: var(--text-color, #333); /* Fallback to dark gray if theme variable not defined */
+}
+
+/* Logout Button */
+.logoutButton {
+  padding: 8px 16px;
+  font-size: var(--font-size-small, 0.875rem); /* Fallback to 0.875rem if theme variable not defined */
+  background-color: var(--primary-color, #007bff); /* Fallback to blue if theme variable not defined */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logoutButton:hover {
+  background-color: var(--hover-color, #0056b3); /* Fallback to darker blue if theme variable not defined */
+}
