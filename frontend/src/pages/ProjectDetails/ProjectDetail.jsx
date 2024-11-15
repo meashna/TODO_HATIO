@@ -1,6 +1,7 @@
-// src/pages/ProjectDetail.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { BsUpload } from 'react-icons/bs';
 import createApi from '../../services/api';
 import TodoList from '../../components/TodoList/TodoList';
 import styles from './ProjectDetails.module.css';
@@ -13,7 +14,7 @@ function ProjectDetail({ auth }) {
 
     const [project, setProject] = useState(null);
     const [title, setTitle] = useState('');
-    const [error, setError] = useState('');
+    const [editing, setEditing] = useState(false);
     const [gistUrl, setGistUrl] = useState('');
 
     useEffect(() => {
@@ -27,34 +28,18 @@ function ProjectDetail({ auth }) {
             setProject(response.data);
             setTitle(response.data.title);
         } catch (err) {
-            setError('Failed to fetch project.');
-            console.error(err);
+            console.error('Failed to fetch project:', err);
         }
     };
 
     const handleUpdateTitle = async () => {
-        if (!title) {
-            setError('Title cannot be empty.');
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Title cannot be empty!',
-                confirmButtonText: 'Okay',
-            });
+        if (!title || title === project.title) {
+            setEditing(false);
             return;
         }
-        if (title === project.title) {
-            Swal.fire({
-                icon: 'info',
-                title: 'No Changes Detected',
-                text: 'You need to make changes to the title before updating.',
-                confirmButtonText: 'Got it!',
-            });
-            return;
-        }
+
         try {
             const response = await api.put(`/projects/${id}`, { title });
-            console.log('Updated Project:', response.data);
             Swal.fire({
                 icon: 'success',
                 title: 'Title Updated',
@@ -62,7 +47,7 @@ function ProjectDetail({ auth }) {
                 confirmButtonText: 'Great!',
             });
             setProject(response.data);
-            setError('');
+            setEditing(false);
         } catch (err) {
             Swal.fire({
                 icon: 'error',
@@ -74,17 +59,6 @@ function ProjectDetail({ auth }) {
         }
     };
 
-    // const handleDeleteProject = async () => {
-    //     if (window.confirm('Are you sure you want to delete this project?')) {
-    //         try {
-    //             await api.delete(`/projects/${id}`);
-    //             navigate('/');
-    //         } catch (err) {
-    //             setError('Failed to delete project.');
-    //             console.error(err);
-    //         }
-    //     }
-    // };
     const handleDeleteProject = async () => {
         Swal.fire({
             title: 'Are you sure?',
@@ -101,8 +75,7 @@ function ProjectDetail({ auth }) {
                     Swal.fire('Deleted!', 'Your project has been deleted.', 'success');
                     navigate('/');
                 } catch (err) {
-                    setError('Failed to delete project.');
-                    console.error(err);
+                    console.error('Failed to delete project:', err);
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
@@ -124,9 +97,7 @@ function ProjectDetail({ auth }) {
                 text: 'Project exported successfully as a Gist.',
                 confirmButtonText: 'View Gist',
             });
-            setError('');
         } catch (err) {
-            setError('Failed to export gist.');
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -141,29 +112,46 @@ function ProjectDetail({ auth }) {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.heading}>Project Details</h2>
-            {/* {error && <p className={styles.error}>{error}</p>} */}
-            <div className={styles.inputGroup}>
-                <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    className={styles.input}
-                />
-                <button onClick={handleUpdateTitle} className={styles.button}>
-                    Update Title
-                </button>
+            <h2 className={styles.heading}>
+                {editing ? (
+                    <div className={styles.editContainer}>
+                        <input
+                            type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            className={styles.input}
+                            autoFocus
+                        />
+                        <button
+                            onClick={handleUpdateTitle}
+                            className={styles.updateButton}
+                            title="Update Title"
+                        >
+                            Update
+                        </button>
+                    </div>
+                ) : (
+                    <span onClick={() => setEditing(true)} className={styles.title}>
+                        {project.title} <FaEdit className={styles.editIcon} />
+                    </span>
+                )}
+            </h2>
+            <div className={styles.actions}>
                 <button
                     onClick={handleDeleteProject}
-                    className={`${styles.button} ${styles.deleteButton}`}
+                    className={`${styles.iconButton} ${styles.deleteButton}`}
+                    title="Delete Project"
                 >
-                    Delete Project
+                    <FaTrashAlt />
                 </button>
-                <button onClick={handleExportGist} className={styles.button}>
-                Export as Gist
-            </button>
+                <button
+                    onClick={handleExportGist}
+                    className={`${styles.iconButton} ${styles.exportButton}`}
+                    title="Export as Gist"
+                >
+                    <BsUpload />
+                </button>
             </div>
-
             {gistUrl && (
                 <p className={styles.gistUrl}>
                     Gist Created:{' '}
