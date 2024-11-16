@@ -8,6 +8,7 @@ function Login({ setAuth }) {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 
@@ -20,7 +21,7 @@ function Login({ setAuth }) {
             setError('Please enter both username and password.');
             return;
         }
-
+        setLoading(true); 
         try {
 
             const response = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -42,6 +43,9 @@ function Login({ setAuth }) {
             setError('An error occurred during login.');
             console.error(err);
         }
+        finally {
+            setLoading(false); 
+        }
     };
 
     return (
@@ -57,7 +61,9 @@ function Login({ setAuth }) {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                         className={styles.input}
+                        disabled={loading}
                     />
+                    
                 </div>
                 <div className={styles.formGroup}>
                     <label className={styles.label}>Password</label>
@@ -67,10 +73,13 @@ function Login({ setAuth }) {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         className={styles.input}
+                        disabled={loading}
                     />
                 </div>
                 {location.state?.message && <p className={styles.success}>{location.state.message}</p>}
-                <button type="submit" className={styles.button}>Login</button>
+                <button type="submit" className={styles.button} disabled={loading}>
+                    {loading ? 'Loading...' : 'Login'}
+                </button>
             </form>
             {error && <p className={styles.error}>{error}</p>}
             <div className={styles.registerLink}>

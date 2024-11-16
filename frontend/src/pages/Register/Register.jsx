@@ -10,6 +10,7 @@ function Register({ setAuth }) {
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,7 +32,7 @@ function Register({ setAuth }) {
             setError('Passwords do not match.');
             return;
         }
-
+        setLoading(true); 
         try {
                 const response = await fetch(`${API_BASE_URL}/auth/register`, {
                 method: 'POST',
@@ -55,6 +56,8 @@ function Register({ setAuth }) {
         } catch (err) {
             setError('An error occurred during registration.');
             console.error(err);
+        }  finally {
+            setLoading(false); 
         }
     };
 
@@ -71,6 +74,7 @@ function Register({ setAuth }) {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                         className={styles.input}
+                        disabled={loading}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -81,6 +85,7 @@ function Register({ setAuth }) {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         className={styles.input}
+                        disabled={loading}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -91,10 +96,11 @@ function Register({ setAuth }) {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                         className={styles.input}
+                        disabled={loading}
                     />
                 </div>
-                <button type="submit" className={styles.button}>
-                    Register
+                <button type="submit" className={styles.button} disabled={loading}>
+                    {loading ? 'Loading...' : 'Register'}
                 </button>
             </form>
             {error && <p className={styles.error}>{error}</p>}
