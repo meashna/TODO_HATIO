@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import createApi from '../../services/api';
 import styles from './TodoItem.module.css';
 import Swal from 'sweetalert2';
-//pen,delete
 import { FaPen, FaTrash } from "react-icons/fa";
-function TodoItem({ todo, auth, refreshProject }) {
+
+function TodoItem({ todo, auth, refreshTodos, deleteTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [description, setDescription] = useState(todo.description);
   const [status, setStatus] = useState(todo.status);
+  const [completedDate, setCompletedDate] = useState(todo.completedDate);
   const api = createApi(auth.username, auth.password);
 
   const handleUpdate = async () => {
@@ -21,9 +22,9 @@ function TodoItem({ todo, auth, refreshProject }) {
       return;
     }
     try {
-      await api.put(`/todos/${todo._id}`, { description, status });
+      const response = await api.put(`/todos/${todo._id}`, { description, status });
+      refreshTodos(response.data); // Update the specific todo in the parent state
       setIsEditing(false);
-      refreshProject();
     } catch (err) {
       Swal.fire({
         icon: 'error',
@@ -48,7 +49,7 @@ function TodoItem({ todo, auth, refreshProject }) {
       if (result.isConfirmed) {
         try {
           await api.delete(`/todos/${todo._id}`);
-          refreshProject();
+          deleteTodo(todo._id); // Remove the todo from the parent state
           Swal.fire({
             icon: 'success',
             title: 'Deleted',
@@ -69,16 +70,24 @@ function TodoItem({ todo, auth, refreshProject }) {
 
   const toggleStatus = async () => {
     const newStatus = status === 'Pending' ? 'Completed' : 'Pending';
+    const newCompletedDate = newStatus === 'Completed' ? new Date().toISOString() : null;
+
     try {
-      await api.put(`/todos/${todo._id}`, { status: newStatus });
+      const response = await api.put(`/todos/${todo._id}`, {
+        status: newStatus,
+        completedDate: newCompletedDate, // Include completion date if status is completed
+      });
+
+      refreshTodos(response.data); // Update the specific todo's status
       setStatus(newStatus);
-      refreshProject();
+      setCompletedDate(newCompletedDate);
     } catch (err) {
       console.error('Failed to update status.', err);
     }
   };
 
   return (
+    <div className={styles.container}>
     <li className={styles.todoItem}>
       {isEditing ? (
         <div className={styles.editingContainer}>
@@ -102,6 +111,20 @@ function TodoItem({ todo, auth, refreshProject }) {
           >
             {todo.description}
           </span>
+          <div className={styles.metadata}>
+            <div>
+              <strong>Status:</strong> {todo.status}
+            </div>
+            <div>
+              <strong>Created:</strong> {new Date(todo.createdDate).toLocaleString()}
+            </div>
+            {completedDate && (
+              <div>
+                <strong>Completed:</strong> {new Date(completedDate).toLocaleString()}
+              </div>
+            )}
+          </div>
+         
           <div className={styles.actions}>
             <input
               type="checkbox"
@@ -109,14 +132,21 @@ function TodoItem({ todo, auth, refreshProject }) {
               onChange={toggleStatus}
               className={styles.checkbox}
             />
-            <FaPen onClick={() => setIsEditing(true)} className={styles.editIcon} />
-              
-           
-            <FaTrash onClick={handleDelete} className={styles.deleteIcon}/>
+            <FaPen
+              onClick={() => status !== 'Completed' && setIsEditing(true)} // Disable edit if completed
+              className={`${styles.editIcon} ${status === 'Completed' ? styles.disabled : ''}`}
+            />
+            <FaTrash
+              onClick={() => status !== 'Completed' && handleDelete()} // Disable delete if completed
+              className={`${styles.deleteIcon} ${status === 'Completed' ? styles.disabled : ''}`}
+            />
           </div>
+          
         </div>
+        
       )}
     </li>
+    </div>
   );
 }
 

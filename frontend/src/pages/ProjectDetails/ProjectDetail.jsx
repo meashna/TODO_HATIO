@@ -95,7 +95,7 @@ function ProjectDetail({ auth }) {
                 icon: 'success',
                 title: 'Gist Exported',
                 text: 'Project exported successfully as a Gist.',
-                confirmButtonText: 'View Gist',
+                // confirmButtonText: 'View Gist',
             });
         } catch (err) {
             Swal.fire({
@@ -147,7 +147,7 @@ function ProjectDetail({ auth }) {
                 <button
                     onClick={handleExportGist}
                     className={`${styles.iconButton} ${styles.exportButton}`}
-                    title="Export as Gist"
+                    title="Export Project Summary as Gist"
                 >
                     <BsUpload />
                 </button>

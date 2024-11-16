@@ -119,6 +119,7 @@
 .loading {
   font-size: var(--font-size-base);
   color: var(--text-color);
+  text-align: center;
 }
 
 .heading {

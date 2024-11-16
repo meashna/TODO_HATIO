@@ -17,15 +17,28 @@ function Home({ auth }) {
         // eslint-disable-next-line
     }, []);
 
+    // const fetchProjects = async () => {
+    //     try {
+    //         const response = await api.get('/projects');
+    //         setProjects(response.data);
+    //     } catch (err) {
+    //         setError('Failed to fetch projects.');
+    //         console.error(err);
+    //     }
+    // };
     const fetchProjects = async () => {
         try {
             const response = await api.get('/projects');
-            setProjects(response.data);
+            const sortedProjects = response.data.sort(
+                (a, b) => new Date(b.createdDate) - new Date(a.createdDate)
+            );
+            setProjects(sortedProjects);
         } catch (err) {
             setError('Failed to fetch projects.');
             console.error(err);
         }
     };
+    
 
     const handleCreateProject = async (e) => {
         e.preventDefault();
@@ -40,8 +53,10 @@ function Home({ auth }) {
             return;
         }
         try {
+            // const response = await api.post('/projects', { title });
+            // setProjects([...projects, response.data]);
             const response = await api.post('/projects', { title });
-            setProjects([...projects, response.data]);
+        setProjects([response.data, ...projects]);
             setTitle('');
             setError('');
             Swal.fire({
