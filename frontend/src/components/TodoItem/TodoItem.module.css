@@ -55,9 +55,6 @@
   transition: background-color 0.3s;
 }
 
-/* .button:hover {
-  background-color: var(--hover-color);
-} */
 
 .editIcon {
   color: #007bff;
@@ -83,8 +80,8 @@
   border-radius: 4px;
 }
 .disabled {
-  pointer-events: none; /* Disable click events */
-  opacity: 0.5; /* Make the icon look deactivated */
+  pointer-events: none; 
+  opacity: 0.5; 
   cursor: not-allowed;
 }
 .metadata {

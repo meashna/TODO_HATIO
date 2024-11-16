@@ -16,14 +16,13 @@ function Login({ setAuth }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Basic validation
         if (!username || !password) {
             setError('Please enter both username and password.');
             return;
         }
 
         try {
-            // Attempt to login
+
             const response = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
@@ -38,6 +37,7 @@ function Login({ setAuth }) {
                 const data = await response.json();
                 setError(data.message || 'Login failed.');
             }
+            console.log(response);
         } catch (err) {
             setError('An error occurred during login.');
             console.error(err);

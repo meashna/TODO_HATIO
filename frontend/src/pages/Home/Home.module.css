@@ -1,13 +1,7 @@
-/* Import the theme variables */
-@import '../../index.css'; /* Update the path accordingly */
-
-/* Container */
 .container {
   padding: 20px;
-
 }
 
-/* Heading */
 .heading {
   font-size: var(--font-size-large);
   color: var(--text-color);
@@ -16,13 +10,11 @@
   text-align: center;
 }
 
-/* Error Message */
 .error {
   color: red;
   margin-bottom: 16px;
 }
 
-/* Form */
 .form {
   display: flex;
   align-items: center;
@@ -60,32 +52,21 @@
   background-color: var(--hover-color);
 }
 
-/* Project List */
 .projectList {
   margin-top: 20px;
 }
 
-/* Loading */
 .loading {
   font-size: var(--font-size-base);
   color: var(--text-color);
   text-align: center;
 }
 
-
-/* Adjustments for smaller screens */
 @media (max-width: 768px) {
-/* Update the path accordingly */
-
-
-/* Form */
-.form {
-  display: flex;
-  align-items: center;
-  margin: 20px auto;
-  width: 100%;
-}
-
-
-
+  .form {
+    display: flex;
+    align-items: center;
+    margin: 20px auto;
+    width: 100%;
+  }
 }

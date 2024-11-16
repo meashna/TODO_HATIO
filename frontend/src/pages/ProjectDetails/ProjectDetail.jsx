@@ -1,4 +1,4 @@
-// ProjectDetail.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
@@ -20,7 +20,6 @@ function ProjectDetail({ auth }) {
 
     useEffect(() => {
         fetchProject();
-        // eslint-disable-next-line
     }, []);
 
     const fetchProject = async () => {

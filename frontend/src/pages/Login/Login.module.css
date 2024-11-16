@@ -1,6 +1,4 @@
 
-/* @import '../../index.css';  */
-/* Container */
 .container {
   max-width: 400px;
   margin: 100px auto;
@@ -10,7 +8,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Heading */
+
 .heading {
   font-size: var(--font-size-large);
   margin-bottom: 24px;
@@ -19,7 +17,7 @@
 
 }
 
-/* Error Message */
+
 .error {
   color: red;
   margin-bottom: 16px;
@@ -27,7 +25,7 @@
   font-size: var(--font-size-small);
 }
 
-/* Form Group */
+
 .formGroup {
   margin-bottom: 16px;
 }
@@ -53,7 +51,7 @@
   border-color: var(--primary-color);
 }
 
-/* Button */
+
 .button {
   width: 100%;
   padding: 12px;
@@ -70,7 +68,7 @@
   background-color: var(--hover-color);
 }
 
-/* Register Link */
+
 .registerLink {
   margin-top: 16px;
   text-align: center;
@@ -91,10 +89,10 @@
   margin-bottom: 10px;
 }
 
-/* Adjustments for smaller screens */
+
 @media (max-width: 768px) {
   .container {
     padding: 24px;
-    margin: 200px 20px; /* No margin required, already centered with Flexbox */
+    margin: 200px 20px; 
   }
 }

@@ -1,4 +1,3 @@
-// models/Gist.js
 const mongoose = require('mongoose');
 
 const GistSchema = new mongoose.Schema({
@@ -16,7 +15,7 @@ const GistSchema = new mongoose.Schema({
         default: Date.now
     },
     filePath: {
-        type: String // Local file system path where the gist is saved
+        type: String
     }
 });
 

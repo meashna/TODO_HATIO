@@ -10,11 +10,10 @@ const todoRoutes = require('./routes/todo');
 
 const app = express();
 
-// Middleware to parse JSON
+
 app.use(express.json());
 
-// Configure CORS
-//CORS_ORIGIN=http://localhost:5173
+
 const corsOrigin = process.env.CORS_ORIGIN || '*';
 app.use(cors({
     origin: corsOrigin, // Frontend URL
@@ -22,8 +21,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// Routes
-// Root Route
+
 app.get('/', (req, res) => {
     res.send('Server is running!');
 });

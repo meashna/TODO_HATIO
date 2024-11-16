@@ -1,4 +1,3 @@
-// src/pages/Register.jsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './Register.module.css';
@@ -52,6 +51,7 @@ function Register({ setAuth }) {
             } else {
                 setError(data.message || 'Registration failed.');
             }
+            console.log(response);
         } catch (err) {
             setError('An error occurred during registration.');
             console.error(err);

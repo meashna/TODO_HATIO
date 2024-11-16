@@ -1,39 +1,3 @@
-// // src/components/Header.jsx
-// import React from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import PropTypes from 'prop-types';
-// import styles from './Header.module.css';
-
-// function Header({ setAuth, auth }) {
-//   const navigate = useNavigate();
-
-//   const handleLogout = () => {
-//     setAuth({ username: '', password: '' });
-//     navigate('/login');
-//   };
-
-//   return (
-//     <header className={styles.header}>
-//       <h1 className={styles.logo}>Project Manager</h1>
-//       <div className={styles.userInfo}>
-//         <span className={styles.greeting}>Hello, {auth.username}</span>
-//         <button onClick={handleLogout} className={styles.logoutButton}>
-//           Logout
-//         </button>
-//       </div>
-//     </header>
-//   );
-// }
-
-// Header.propTypes = {
-//   setAuth: PropTypes.func.isRequired,
-//   auth: PropTypes.shape({
-//     username: PropTypes.string.isRequired,
-//     password: PropTypes.string.isRequired,
-//   }).isRequired,
-// };
-
-// export default Header;
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';

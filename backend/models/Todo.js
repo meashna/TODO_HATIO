@@ -1,4 +1,3 @@
-// models/Todo.js
 const mongoose = require('mongoose');
 
 const TodoSchema = new mongoose.Schema({
@@ -18,7 +17,16 @@ const TodoSchema = new mongoose.Schema({
     updatedDate: {
         type: Date,
         default: Date.now
-    },completedDate: { type: Date, default: null }
+    },
+    completedDate: {
+        type: Date,
+        default: null
+    },
+    project: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project',
+        required: true
+    }
 });
 
 module.exports = mongoose.model('Todo', TodoSchema);

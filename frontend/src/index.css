@@ -1,22 +1,20 @@
 
-
-/* Root Variables with the new theme colors */
 :root {
-  --primary-color: #003fa3; /* Celtic Blue */
-  --secondary-color: #3f4f6b; /* Astronaut Blue */
-  --background-color: #f9fbfd; /* Vanilla */
-  --text-color: #001028; /* Oxford Dark Blue */
+  --primary-color: #003fa3; 
+  --secondary-color: #3f4f6b; 
+  --background-color: #f9fbfd; 
+  --text-color: #001028; 
   --accent-color: #179259; 
-  --accent-color-dark: #26a96c;/* Green Primary */
-  --border-color: #dce1e6; /* Rain Cloud */
-  --hover-color: #005fb8; /* Celtic Blue Shade */
+  --accent-color-dark: #26a96c;
+  --border-color: #dce1e6; 
+  --hover-color: #005fb8; 
   --font-family: 'Montserrat', sans-serif;
   --font-size-base: 16px;
   --font-size-small: 14px;
   --font-size-large: 20px;
 }
 
-/* Global Styles */
+
 body {
   margin: 0;
   padding: 0;
@@ -37,7 +35,7 @@ a:hover {
   text-decoration: none;
 }
 
-/* Buttons */
+
 button {
   font-family: var(--font-family);
   font-size: var(--font-size-small);
@@ -53,7 +51,7 @@ button:hover {
   background-color: var(--hover-color);
 }
 
-/* Headings */
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family);
   color: var(--text-color);
@@ -72,7 +70,7 @@ h3 {
   font-size: 1rem;
 }
 
-/* Inputs */
+
 input, textarea {
   font-family: var(--font-family);
   font-size: var(--font-size-base);
@@ -87,16 +85,9 @@ input:focus, textarea:focus {
   border-color: var(--primary-color);
 }
 
-/* Cards */
-.card {
-  background-color: var(--background-color);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 
-/* Utility Classes */
+
+
 .text-primary {
   color: var(--primary-color);
 }

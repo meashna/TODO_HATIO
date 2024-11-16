@@ -1,57 +1,41 @@
-/* Import theme variables if available */
-@import '../../index.css'; /* Update the path accordingly */
 
-
-/* Project Item Container */
 .projectItem {
   padding: 10px;
-  border: 1px solid var(--border-color, #ccc); /* Fallback to #ccc if theme variable not defined */
+  border: 1px solid var(--border-color, #ccc);
   border-radius: 4px;
   background-color: white;
-  /* margin-bottom: 10px; */
   transition: box-shadow 0.3s;
   width: 60%;
   margin: 10px auto;
 }
 
-/* Hover Effect */
 .projectItem:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Link */
 .projectLink {
   text-decoration: none;
-  color: var(--text-color, black); /* Fallback to black if theme variable not defined */
+  color: var(--text-color, black);
 }
 
-/* Title */
 .projectTitle {
-  font-size: var(--font-size-large, 1.2rem); /* Fallback to 1.2rem if theme variable not defined */
+  font-size: var(--font-size-large, 1.2rem);
   margin: 0 0 5px 0;
 }
 
-/* Date */
 .projectDate {
-  font-size: var(--font-size-small, 0.875rem); /* Fallback to 0.875rem if theme variable not defined */
-  color: var(--secondary-color, #6c757d); /* Fallback to a gray color if theme variable not defined */
+  font-size: var(--font-size-small, 0.875rem);
+  color: var(--secondary-color, #6c757d);
 }
 
-
-
-
-/* Adjustments for smaller screens */
 @media (max-width: 768px) {
-
-    .projectItem {
-      padding: 10px;
-      border: 1px solid var(--border-color, #ccc); /* Fallback to #ccc if theme variable not defined */
-      border-radius: 4px;
-      background-color: white;
-      /* margin-bottom: 10px; */
-      transition: box-shadow 0.3s;
-      width: 100%;
-      margin: 10px auto;
-    }
-
+  .projectItem {
+    padding: 10px;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 4px;
+    background-color: white;
+    transition: box-shadow 0.3s;
+    width: 100%;
+    margin: 10px auto;
+  }
 }

@@ -1,4 +1,4 @@
-// src/components/ProjectList.jsx
+
 import React from 'react';
 import ProjectItem from '../ProjectItem/ProjectItem';
 import styles from './ProjectList.module.css';

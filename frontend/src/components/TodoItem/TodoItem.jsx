@@ -8,7 +8,7 @@ function TodoItem({ todo, auth, refreshTodos, deleteTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [description, setDescription] = useState(todo.description);
   const [status, setStatus] = useState(todo.status);
-  const [completedDate, setCompletedDate] = useState(todo.completedDate); // Keep completedDate state
+  const [completedDate, setCompletedDate] = useState(todo.completedDate); 
   const api = createApi(auth.username, auth.password);
 
   const handleUpdate = async () => {
@@ -23,7 +23,7 @@ function TodoItem({ todo, auth, refreshTodos, deleteTodo }) {
     }
     try {
       const response = await api.put(`/todos/${todo._id}`, { description, status });
-      refreshTodos(response.data); // Ensure the parent state is updated with the new todo
+      refreshTodos(response.data); 
       setIsEditing(false);
     } catch (err) {
       Swal.fire({

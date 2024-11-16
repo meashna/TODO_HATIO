@@ -14,18 +14,8 @@ function Home({ auth }) {
 
     useEffect(() => {
         fetchProjects();
-        // eslint-disable-next-line
     }, []);
 
-    // const fetchProjects = async () => {
-    //     try {
-    //         const response = await api.get('/projects');
-    //         setProjects(response.data);
-    //     } catch (err) {
-    //         setError('Failed to fetch projects.');
-    //         console.error(err);
-    //     }
-    // };
     const fetchProjects = async () => {
         try {
             const response = await api.get('/projects');
@@ -53,8 +43,6 @@ function Home({ auth }) {
             return;
         }
         try {
-            // const response = await api.post('/projects', { title });
-            // setProjects([...projects, response.data]);
             const response = await api.post('/projects', { title });
         setProjects([response.data, ...projects]);
             setTitle('');

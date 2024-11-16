@@ -1,4 +1,4 @@
-// src/components/ProjectItem.jsx
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ProjectItem.module.css';

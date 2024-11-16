@@ -1,21 +1,15 @@
-/* Import theme variables if available */
-@import '../../index.css'; /* Update the path accordingly */
 
-
-/* Container */
 .container {
   margin-top: 20px;
 }
 
-/* No Projects Message */
 .noProjects {
   font-size: var(--font-size-base, 1rem);
-  color: var(--secondary-color, #6c757d); /* Fallback to a muted gray if theme variable not defined */
+  color: var(--secondary-color, #6c757d);
   text-align: center;
   margin-top: 20px;
 }
 
-/* Project List */
 .projectList {
   list-style: none;
   padding: 0;
