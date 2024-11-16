@@ -5,6 +5,7 @@ const { createGist } = require('../services/githubService');
 const fs = require('fs');
 const path = require('path');
 const User = require('../models/User');
+const PDFDocument = require('pdfkit');
 
 /**
  * Helper function to authenticate user using Basic Auth
@@ -167,6 +168,65 @@ exports.deleteProject = async (req, res) => {
 };
 
 // Export Project Summary as Gist
+// exports.exportProjectSummary = async (req, res) => {
+//     try {
+//         const user = await authenticate(req);
+//         if (!user) {
+//             return res.status(401).json({ message: 'Unauthorized' });
+//         }
+
+//         const projectId = req.params.id;
+
+//         const project = await Project.findOne({ _id: projectId, user: user._id }).populate('todos');
+//         if (!project) return res.status(404).json({ message: 'Project not found' });
+
+//         const totalTodos = project.todos.length;
+//         const completedTodos = project.todos.filter(todo => todo.status === 'Completed').length;
+//         const pendingTodos = project.todos.filter(todo => todo.status === 'Pending');
+
+//         // Generate Markdown Content
+//         let markdown = `# ${project.title}\n\n`;
+//         markdown += `**Summary:** ${completedTodos} / ${totalTodos} completed.\n\n`;
+
+//         markdown += `## Pending\n`;
+//         pendingTodos.forEach(todo => {
+//             markdown += `- [ ] ${todo.description} (Created: ${new Date(todo.createdDate).toDateString()})\n`;
+//         });
+
+//         markdown += `\n## Completed \n`;
+//         project.todos
+//             .filter(todo => todo.status === 'Completed')
+//             .forEach(todo => {
+//                 markdown += `- [x] ${todo.description} (Completed: ${new Date(todo.updatedDate).toDateString()})\n`;
+//             });
+
+//         // Save Markdown Locally
+//         const fileName = `${project.title.replace(/\s+/g, '_')}.md`;
+//         const filePath = path.join(__dirname, '..', 'exports', fileName);
+
+//         // Ensure exports directory exists
+//         fs.mkdirSync(path.dirname(filePath), { recursive: true });
+//         fs.writeFileSync(filePath, markdown);
+
+//         // Create Secret Gist
+//         const gist = await createGist(
+//             `Project Summary: ${project.title}`,
+//             {
+//                 [fileName]: {
+//                     content: markdown,
+//                 },
+//             },
+//             false // false for secret gist
+//         );
+
+//         res.status(200).json({ message: 'Gist created successfully', gistUrl: gist.html_url });
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// };
+
+// Export Project Summary as Gist or PDF Based on Environment
+// Export Project Summary as Gist or Local File Based on Environment
 exports.exportProjectSummary = async (req, res) => {
     try {
         const user = await authenticate(req);
@@ -199,15 +259,26 @@ exports.exportProjectSummary = async (req, res) => {
                 markdown += `- [x] ${todo.description} (Completed: ${new Date(todo.updatedDate).toDateString()})\n`;
             });
 
-        // Save Markdown Locally
         const fileName = `${project.title.replace(/\s+/g, '_')}.md`;
-        const filePath = path.join(__dirname, '..', 'exports', fileName);
 
-        // Ensure exports directory exists
-        fs.mkdirSync(path.dirname(filePath), { recursive: true });
-        fs.writeFileSync(filePath, markdown);
+        if (process.env.NODE_ENV !== 'production') {
+            // **Development Environment: Save Markdown to Local File**
+            const filePath = path.join(__dirname, '..', 'exports', fileName);
 
-        // Create Secret Gist
+            try {
+                // Ensure exports directory exists
+                fs.mkdirSync(path.dirname(filePath), { recursive: true });
+                // Write Markdown to file
+                fs.writeFileSync(filePath, markdown, 'utf8');
+                console.log(`Exported project "${project.title}" to local file: ${filePath}`);
+            } catch (fileErr) {
+                console.error('Failed to write Markdown file locally:', fileErr);
+                // Optionally, you can decide to return an error or proceed to create the Gist
+                // Here, we'll proceed to create the Gist even if file writing fails
+            }
+        }
+
+        // **Create Secret Gist in Both Environments**
         const gist = await createGist(
             `Project Summary: ${project.title}`,
             {
@@ -218,8 +289,10 @@ exports.exportProjectSummary = async (req, res) => {
             false // false for secret gist
         );
 
+        // **Respond with Gist URL**
         res.status(200).json({ message: 'Gist created successfully', gistUrl: gist.html_url });
     } catch (err) {
+        console.error('Error exporting project summary:', err);
         res.status(500).json({ error: err.message });
     }
 };

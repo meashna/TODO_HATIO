@@ -10,6 +10,7 @@ function Register({ setAuth }) {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,7 +34,7 @@ function Register({ setAuth }) {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/api/auth/register', {
+                const response = await fetch(`${API_BASE_URL}/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

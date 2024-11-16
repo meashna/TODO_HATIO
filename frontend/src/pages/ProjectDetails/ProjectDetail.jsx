@@ -1,3 +1,4 @@
+// ProjectDetail.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
@@ -29,6 +30,12 @@ function ProjectDetail({ auth }) {
             setTitle(response.data.title);
         } catch (err) {
             console.error('Failed to fetch project:', err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to fetch the project details.',
+                confirmButtonText: 'Close',
+            });
         }
     };
 
@@ -95,7 +102,7 @@ function ProjectDetail({ auth }) {
                 icon: 'success',
                 title: 'Gist Exported',
                 text: 'Project exported successfully as a Gist.',
-                // confirmButtonText: 'View Gist',
+                confirmButtonText: 'View Gist',
             });
         } catch (err) {
             Swal.fire({
