@@ -21,6 +21,10 @@ app.use(cors({
 }));
 
 // Routes
+// Root Route
+app.get('/', (req, res) => {
+    res.send('Server is running!');
+});
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/todos', todoRoutes);
