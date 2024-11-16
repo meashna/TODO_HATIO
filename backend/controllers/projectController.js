@@ -187,12 +187,12 @@ exports.exportProjectSummary = async (req, res) => {
         let markdown = `# ${project.title}\n\n`;
         markdown += `**Summary:** ${completedTodos} / ${totalTodos} completed.\n\n`;
 
-        markdown += `## Pending Todos\n`;
+        markdown += `## Pending\n`;
         pendingTodos.forEach(todo => {
             markdown += `- [ ] ${todo.description} (Created: ${new Date(todo.createdDate).toDateString()})\n`;
         });
 
-        markdown += `\n## Completed Todos\n`;
+        markdown += `\n## Completed \n`;
         project.todos
             .filter(todo => todo.status === 'Completed')
             .forEach(todo => {

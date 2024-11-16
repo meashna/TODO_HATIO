@@ -18,7 +18,7 @@ const TodoSchema = new mongoose.Schema({
     updatedDate: {
         type: Date,
         default: Date.now
-    }
+    },completedDate: { type: Date, default: null }
 });
 
 module.exports = mongoose.model('Todo', TodoSchema);

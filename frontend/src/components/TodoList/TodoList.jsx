@@ -123,7 +123,7 @@ function TodoList({ project, auth }) {
       <form onSubmit={handleAddTodo} className={styles.form}>
         <input
           type="text"
-          placeholder="Name it before you forget it"
+          placeholder="Describe what you need to do.."
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           className={styles.input}

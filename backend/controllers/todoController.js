@@ -53,7 +53,35 @@ exports.addTodo = async (req, res) => {
     }
 };
 
-// Update a todo
+// // Update a todo
+// exports.updateTodo = async (req, res) => {
+//     try {
+//         const user = await authenticate(req);
+//         if (!user) {
+//             return res.status(401).json({ message: 'Unauthorized' });
+//         }
+
+//         const { description, status } = req.body;
+//         const todoId = req.params.todoId;
+
+//         // Find the project that contains this todo and belongs to the user
+//         const project = await Project.findOne({ user: user._id, todos: todoId });
+//         if (!project) return res.status(404).json({ message: 'Todo not found in your projects' });
+
+//         // Update the todo
+//         const updatedTodo = await Todo.findByIdAndUpdate(
+//             todoId,
+//             { description, status, updatedDate: Date.now() },
+//             { new: true }
+//         );
+
+//         if (!updatedTodo) return res.status(404).json({ message: 'Todo not found' });
+
+//         res.status(200).json(updatedTodo);
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// };
 exports.updateTodo = async (req, res) => {
     try {
         const user = await authenticate(req);
@@ -68,10 +96,13 @@ exports.updateTodo = async (req, res) => {
         const project = await Project.findOne({ user: user._id, todos: todoId });
         if (!project) return res.status(404).json({ message: 'Todo not found in your projects' });
 
+        // Set completedDate based on status
+        const completedDate = status === 'Completed' ? new Date() : null;
+
         // Update the todo
         const updatedTodo = await Todo.findByIdAndUpdate(
             todoId,
-            { description, status, updatedDate: Date.now() },
+            { description, status, completedDate, updatedDate: Date.now() },
             { new: true }
         );
 
@@ -82,6 +113,7 @@ exports.updateTodo = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
 
 // Delete a todo
 exports.deleteTodo = async (req, res) => {

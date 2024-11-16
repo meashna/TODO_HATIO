@@ -8,7 +8,7 @@ function TodoItem({ todo, auth, refreshTodos, deleteTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [description, setDescription] = useState(todo.description);
   const [status, setStatus] = useState(todo.status);
-  const [completedDate, setCompletedDate] = useState(todo.completedDate);
+  const [completedDate, setCompletedDate] = useState(todo.completedDate); // Keep completedDate state
   const api = createApi(auth.username, auth.password);
 
   const handleUpdate = async () => {
@@ -23,7 +23,7 @@ function TodoItem({ todo, auth, refreshTodos, deleteTodo }) {
     }
     try {
       const response = await api.put(`/todos/${todo._id}`, { description, status });
-      refreshTodos(response.data); // Update the specific todo in the parent state
+      refreshTodos(response.data); // Ensure the parent state is updated with the new todo
       setIsEditing(false);
     } catch (err) {
       Swal.fire({
@@ -70,17 +70,17 @@ function TodoItem({ todo, auth, refreshTodos, deleteTodo }) {
 
   const toggleStatus = async () => {
     const newStatus = status === 'Pending' ? 'Completed' : 'Pending';
-    const newCompletedDate = newStatus === 'Completed' ? new Date().toISOString() : null;
+    const newCompletedDate = newStatus === 'Completed' ? new Date().toISOString() : null; // Update completedDate based on status
 
     try {
       const response = await api.put(`/todos/${todo._id}`, {
         status: newStatus,
-        completedDate: newCompletedDate, // Include completion date if status is completed
+        completedDate: newCompletedDate, // Send completedDate to backend
       });
 
-      refreshTodos(response.data); // Update the specific todo's status
+      refreshTodos(response.data); // Update the parent state
       setStatus(newStatus);
-      setCompletedDate(newCompletedDate);
+      setCompletedDate(newCompletedDate); // Update local state
     } catch (err) {
       console.error('Failed to update status.', err);
     }
@@ -88,64 +88,62 @@ function TodoItem({ todo, auth, refreshTodos, deleteTodo }) {
 
   return (
     <div className={styles.container}>
-    <li className={styles.todoItem}>
-      {isEditing ? (
-        <div className={styles.editingContainer}>
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className={styles.input}
-          />
-          <button onClick={handleUpdate} className={`${styles.button} ${styles.editButton}`}>
-            Save
-          </button>
-          <button onClick={() => setIsEditing(false)} className={`${styles.button} ${styles.deleteButton}`}>
-            Cancel
-          </button>
-        </div>
-      ) : (
-        <div className={styles.viewContainer}>
-          <span
-            className={`${styles.description} ${status === 'Completed' ? styles.completed : ''}`}
-          >
-            {todo.description}
-          </span>
-          <div className={styles.metadata}>
-            <div>
-              <strong>Status:</strong> {todo.status}
-            </div>
-            <div>
-              <strong>Created:</strong> {new Date(todo.createdDate).toLocaleString()}
-            </div>
-            {completedDate && (
-              <div>
-                <strong>Completed:</strong> {new Date(completedDate).toLocaleString()}
-              </div>
-            )}
-          </div>
-         
-          <div className={styles.actions}>
+      <li className={styles.todoItem}>
+        {isEditing ? (
+          <div className={styles.editingContainer}>
             <input
-              type="checkbox"
-              checked={status === 'Completed'}
-              onChange={toggleStatus}
-              className={styles.checkbox}
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className={styles.input}
             />
-            <FaPen
-              onClick={() => status !== 'Completed' && setIsEditing(true)} // Disable edit if completed
-              className={`${styles.editIcon} ${status === 'Completed' ? styles.disabled : ''}`}
-            />
-            <FaTrash
-              onClick={() => status !== 'Completed' && handleDelete()} // Disable delete if completed
-              className={`${styles.deleteIcon} ${status === 'Completed' ? styles.disabled : ''}`}
-            />
+            <button onClick={handleUpdate} className={`${styles.button} ${styles.editButton}`}>
+              Save
+            </button>
+            <button onClick={() => setIsEditing(false)} className={`${styles.button} ${styles.deleteButton}`}>
+              Cancel
+            </button>
           </div>
-          
-        </div>
-        
-      )}
-    </li>
+        ) : (
+          <div className={styles.viewContainer}>
+            <span
+              className={`${styles.description} ${status === 'Completed' ? styles.completed : ''}`}
+            >
+              {todo.description}
+            </span>
+            <div className={styles.metadata}>
+              <div>
+                <strong>Status:</strong> {todo.status}
+              </div>
+              <div>
+                <strong>Created:</strong> {new Date(todo.createdDate).toISOString().split('T')[0]}
+              </div>
+              {completedDate && (
+                <div>
+                  <strong>Completed:</strong> {new Date(completedDate).toISOString().split('T')[0]}
+                </div>
+              )}
+            </div>
+
+            <div className={styles.actions}>
+              <input
+                type="checkbox"
+                checked={status === 'Completed'}
+                onChange={toggleStatus}
+                className={styles.checkbox}
+              />
+              <FaPen
+                onClick={() => status !== 'Completed' && setIsEditing(true)} // Disable edit if completed
+                className={`${styles.editIcon} ${status === 'Completed' ? styles.disabled : ''}`}
+              />
+              <FaTrash
+                onClick={() => status !== 'Completed' && handleDelete()} // Disable delete if completed
+                className={`${styles.deleteIcon} ${status === 'Completed' ? styles.disabled : ''}`}
+              />
+            </div>
+          </div>
+        )}
+      </li>
     </div>
   );
 }

@@ -44,11 +44,10 @@ function Register({ setAuth }) {
             const data = await response.json();
 
             if (response.status === 201) {
-                setSuccess('Registration successful! Redirecting to login...');
-                // Optionally, auto-login the user or redirect to login
-                setTimeout(() => {
-                    navigate('/login');
-                }, 2000);
+                setSuccess('Registration successful!');
+                //navigate('/', { state: { message: 'Registration Successfull .Redirected to home page.......' } });
+                setAuth({ username, password });
+                navigate('/');
             } else {
                 setError(data.message || 'Registration failed.');
             }
