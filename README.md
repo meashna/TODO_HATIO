@@ -12,10 +12,9 @@ Backend API: <a href="https://todo-hatio-server.vercel.app/" target="_blank" rel
 1. Features
 2. Technologies & Dependencies
 3. Getting Started
-4. Environment Variables
-5. API Documentation
-6. Testing
-7. Project Structure
+4. API Documentation
+5. Testing
+6. Project Structure
 
 ## 🚀 Features
 
@@ -168,22 +167,6 @@ VITE_API_BASE_URL=http://localhost:3000/api
 ```bash
 npm run dev
 ```
-
-## 🔑 Environment Variables
-
-### Backend
-| Variable | Description | Default | Notes |
-|----------|-------------|---------|--------|
-| PORT | Server port | 3000 | |
-| MONGO_URI | MongoDB connection string | - | Required |
-| GITHUB_TOKEN | GitHub personal access token | - | Required for gist functionality |
-| CORS_ORIGIN | Allowed CORS origin | http://localhost:5173 | Or your running frontend host |
-| NODE_ENV | Environment mode | development | Affects gist export behavior |
-
-### Frontend
-| Variable | Description | Default |
-|----------|-------------|---------|
-| VITE_API_BASE_URL | Backend API URL | http://localhost:3000/api |
 
 ## 📚 API Documentation
 
