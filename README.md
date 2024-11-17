@@ -1,6 +1,6 @@
 # Todo Management Application
 
-A full-stack Todo Management Application that allows users to create projects, manage todos, and export project summaries as GitHub gists.
+A React-Nodejs-Mongodb Todo Management Application that allows users to create projects, manage todos, and export project summaries as GitHub gists.
 
 ## 🔗 Live Demo
 
