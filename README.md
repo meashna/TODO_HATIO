@@ -2,6 +2,13 @@
 
 A full-stack Todo Management Application that allows users to create projects, manage todos, and export project summaries as GitHub gists.
 
+## 🔗 Live Demo
+
+Site: [https://todo-hatio-react.vercel.app/](https://todo-hatio-react.vercel.app/)
+
+Backend API: [https://todo-hatio-server.vercel.app/](https://todo-hatio-server.vercel.app/)
+
+
 ## 📝 Table of Contents
 1. Features
 2. Technologies & Dependencies
