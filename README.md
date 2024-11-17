@@ -4,10 +4,9 @@ A full-stack Todo Management Application that allows users to create projects, m
 
 ## 🔗 Live Demo
 
-Site: [https://todo-hatio-react.vercel.app/](https://todo-hatio-react.vercel.app/)
+Site: <a href="https://todo-hatio-react.vercel.app/" target="_blank" rel="noopener noreferrer">https://todo-hatio-react.vercel.app/</a>
 
-Backend API: [https://todo-hatio-server.vercel.app/](https://todo-hatio-server.vercel.app/)
-
+Backend API: <a href="https://todo-hatio-server.vercel.app/" target="_blank" rel="noopener noreferrer">https://todo-hatio-server.vercel.app/</a>
 
 ## 📝 Table of Contents
 1. Features
